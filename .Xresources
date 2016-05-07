@@ -1,0 +1,20 @@
+!===============================
+! – Setting for xterm
+! ——————–
+XTerm*locale: true
+Xterm*utf8: true
+XTerm*utf8Title: true
+xterm*xftAntialias:true
+XTerm*fontMenu*fontdefault*Label: Default
+!XTerm*faceName:DejaVu Sans Mono:antialias=True:pixelsize=14
+!XTerm*faceName: Source Code Pro for Powerline:pixelsize=14
+XTerm*faceName:inconsolata for powerline:pixelsize=16
+XTerm*faceNameDoublesize:Source Han Sans CN:antialias=True:pixelsize=16
+!XTerm*faceNameDoublesize:WenQuanYi Micro Hei:antialias=True:pixelsize=16
+XTerm*inputMethod: ibus
+XTerm*background: #1C1C1C
+XTerm*foreground: #FFFFFF
+!XTerm*VT100.translations: #override : select-end(CLIPBOARD, CUT_BUFFER0)
+!———————-
+!- End of setting Xterm
+!=========================

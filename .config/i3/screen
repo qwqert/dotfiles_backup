@@ -1,0 +1,23 @@
+#!/bin/sh
+
+#This Script open/close screen saver and DPMS
+
+if [[ $BLOCK_BUTTON == 1 ]]; then
+    xset s on; xset +dpms
+elif [[ $BLOCK_BUTTON == 3 ]]; then
+    xset s off; xset -dpms
+fi
+
+status=$(xset -q | grep "DPMS is" | cut -f5 -d' ')
+
+
+
+if [[ $status == "Disabled" ]]; then
+    echo off
+    echo
+    echo \#00ff00
+else
+    echo on
+fi
+
+exit 0

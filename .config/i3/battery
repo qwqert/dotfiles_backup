@@ -1,0 +1,14 @@
+#!/bin/sh
+status=$(cat /sys/class/power_supply/BAT0/status)
+capacity=$(cat /sys/class/power_supply/BAT0/capacity)
+echo $capacity
+echo $capacity
+case ${status} in
+"Discharging")
+    echo \#ff3333
+    ;;
+"Charging")
+    echo \#33ff33
+    ;;
+esac
+exit 0

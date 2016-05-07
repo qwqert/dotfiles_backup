@@ -1,0 +1,16 @@
+#!/bin/bash
+
+unread=$(claws-mail --status | cut -d' ' -f2)
+if [[ $unread == *[!0-9]* ]]; then
+    echo 0
+    echo
+    echo \#ff3333
+else
+    echo $unread
+    echo
+    if (($unread > 0)); then
+        echo \#33ff33
+    fi
+fi
+
+exit 0
