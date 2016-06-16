@@ -9,7 +9,7 @@ set nowrap
 set nopaste
 set ts=4
 set shiftwidth=4
-"set expandtab
+set expandtab
 set autoindent
 set cindent
 set smartindent
@@ -80,6 +80,8 @@ Plugin 'surround.vim'
 Plugin 'The-NERD-Tree'
 Plugin 'The-NERD-Commenter'
 Plugin 'asins/vimcdoc'
+Plugin 'vim-scripts/ShowMarks7'
+Plugin 'vim-scripts/Marks-Browser'
 Plugin 'vim-scripts/QFixToggle'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
@@ -88,6 +90,9 @@ Plugin 'altercation/vim-colors-solarized'
 Plugin 'git://fedorapeople.org/home/fedora/wwoods/public_git/vim-scripts.git'
 call vundle#end()
 filetype plugin indent on
+
+" >>> NERD-Commenter
+let NERDSpaceDelims = 1
 
 " >>> Easy Align
 " Start interactive EasyAlign in visual mode (e.g. vipga)
@@ -98,13 +103,13 @@ nmap <leader>a <Plug>(EasyAlign)
 " >>> Open CtrlP buffer list
 let g:ctrlp_cmd = 'CtrlPBuffer'
 let g:ctrlp_custom_ignore = {
-    \ 'dir':  '\v[\/]\.(git|hg|svn)$',
-    \ 'file': '\v\.(exe|so|dll|o|lst)$',
-    \ 'link': 'SOME_BAD_SYMBOLIC_LINKS',
-    \ }
+            \ 'dir':  '\v[\/]\.(git|hg|svn)$',
+            \ 'file': '\v\.(exe|so|dll|o|lst)$',
+            \ 'link': 'SOME_BAD_SYMBOLIC_LINKS',
+            \ }
 
-" >>> ga to Toggle between c/h file
-nnoremap <silent> ga :A<CR>
+" >>> <leader>h - Toggle between c/h file
+nnoremap <silent> <leader>h :A<CR>
 
 
 if &term =~ 'xterm'
@@ -137,15 +142,14 @@ if &term =~ 'xterm'
     " F1 Hightlight search
     nnoremap <silent> <F1> :set hlsearch! hlsearch?<CR>
 
-    " F2 Switch to relative number
-    function! NumberToggle()
-        if(&relativenumber == 1)
-            set norelativenumber number
-        else
-            set relativenumber
-        endif
-    endfunc
-    nnoremap <silent> <F2> :call NumberToggle()<CR>
+    " F2 ShowMarks toggle
+    let showmarks_include="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    let showmarks_ignore_type="hqm"
+    let g:showmarks_hlline_lower=1
+    let g:showmarks_hlline_upper=1
+    hi ShowMarksHLl ctermbg=Yellow   ctermfg=Black  guibg=#FFDB72 guifg=Black
+    hi ShowMarksHLu ctermbg=Magenta  ctermfg=Black  guibg=#FFB3FF guifg=Black
+    nnoremap <silent> <F2> :ShowMarksToggle<CR>
 
     " F3 Show listchars
     set listchars=tab:»·,nbsp:·,trail:·
@@ -169,6 +173,9 @@ if &term =~ 'xterm'
 
     " F10 Quickfix window toggle
     nnoremap <silent> <F10> :QFix<CR>
+
+    " F11 Marks-Browser toggle
+    nnoremap <silent> <F11> :MarksBrowser<CR>
 
     " F12 Update ctags
     nnoremap <silent> <F12> :!ctags -R<CR>
