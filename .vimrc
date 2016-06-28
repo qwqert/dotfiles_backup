@@ -79,6 +79,7 @@ Plugin 'taglist.vim'
 Plugin 'surround.vim'
 Plugin 'The-NERD-Tree'
 Plugin 'The-NERD-Commenter'
+Plugin 'xterm-color-table.vim'
 Plugin 'asins/vimcdoc'
 Plugin 'Yggdroot/indentLine'
 Plugin 'vim-scripts/ShowMarks7'
@@ -158,6 +159,7 @@ if &term =~ 'xterm'
 
     " F4 Toggle IndentLines
     let g:indentLine_enabled = 0
+    let g:indentLine_color_term = 236
     nnoremap <silent> <F4> :IndentLinesToggle<CR>
 
     " F5 Toggle wrap
