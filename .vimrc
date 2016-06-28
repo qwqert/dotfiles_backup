@@ -80,6 +80,7 @@ Plugin 'surround.vim'
 Plugin 'The-NERD-Tree'
 Plugin 'The-NERD-Commenter'
 Plugin 'asins/vimcdoc'
+Plugin 'Yggdroot/indentLine'
 Plugin 'vim-scripts/ShowMarks7'
 Plugin 'vim-scripts/Marks-Browser'
 Plugin 'vim-scripts/QFixToggle'
@@ -155,30 +156,35 @@ if &term =~ 'xterm'
     set listchars=tab:»·,nbsp:·,trail:·
     nnoremap <silent> <F3> :set list! list?<CR>
 
-    " F4 Toggle wrap
-    nnoremap <silent> <F4> :set wrap! wrap?<CR>
+    " F4 Toggle IndentLines
+    let g:indentLine_enabled = 0
+    nnoremap <silent> <F4> :IndentLinesToggle<CR>
 
-    " F5 Paste toggle
-    nnoremap <silent> <F5> :set paste! paste?<CR>
+    " F5 Toggle wrap
+    nnoremap <silent> <F5> :set wrap! wrap?<CR>
 
-    " F8 NERDTree window toggle
-    nnoremap <silent> <F8> :NERDTreeToggle<CR>
+    " F6 Paste toggle
+    nnoremap <silent> <F6> :set paste! paste?<CR>
 
-    " F9 taglist window toggle
+    " F8 Update ctags
+    set tags+=./../tags,./../../tags,./../../../tags,./../../../../tags
+    nnoremap <silent> <F8> :!ctags -R<CR>
+
+    " F9 NERDTree window toggle
+    nnoremap <silent> <F9> :NERDTreeToggle<CR>
+
+    " F10 taglist window toggle
     let Tlist_Close_On_Select=1 " close taglist window on select
     let Tlist_File_Fold_Auto_Close=1 " Close tag folds for inactive buffers
     let Tlist_GainFocus_On_ToggleOpen=1 " gain focus when taglist window open
     let Tlist_Use_Right_Window=1 " show taglist on the right
-    nnoremap <silent> <F9> :TlistToggle<CR>
+    nnoremap <silent> <F10> :TlistToggle<CR>
 
-    " F10 Quickfix window toggle
-    nnoremap <silent> <F10> :QFix<CR>
+    " F11 Quickfix window toggle
+    nnoremap <silent> <F11> :QFix<CR>
 
-    " F11 Marks-Browser toggle
-    nnoremap <silent> <F11> :MarksBrowser<CR>
-
-    " F12 Update ctags
-    nnoremap <silent> <F12> :!ctags -R<CR>
+    " F12 Marks-Browser toggle
+    nnoremap <silent> <F12> :MarksBrowser<CR>
 
 endif
 
