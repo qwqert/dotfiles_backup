@@ -22,6 +22,7 @@ inoremap <silent> <C-s> <ESC>:w<cr>a
 " >>> Search
 "set hlsearch " hightlight search
 set incsearch " increase search
+vnoremap // y/<C-R>"<CR> " Search for visually selected text
 nnoremap <silent> <C-l> :<C-u>nohlsearch<CR><C-l> " clear screen and temporary disable highlight
 
 " >>> Encodings
