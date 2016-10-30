@@ -75,10 +75,12 @@ set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 Plugin 'a.vim'
 Plugin 'ctrlp.vim'
-Plugin 'tacahiroy/ctrlp-funky'
+Plugin 'tacahiroy/ctrlp-funky'        "Simple function navigator for ctrlp.vim
+Plugin 'bling/vim-bufferline'         "Show the list of buffers in the command bar
+Plugin 'Raimondi/delimitMate'         "Provides insert mode auto-completion for quotes, parens, brackets, etc.
+Plugin 'gcmt/wildfire.vim'            "[Enter] Smart selection of the closest text object
 Plugin 'Lokaltog/vim-easymotion'
-Plugin 'Raimondi/delimitMate'
-Plugin 'majutsushi/tagbar'
+Plugin 'majutsushi/tagbar' 
 Plugin 'surround.vim'
 Plugin 'The-NERD-Tree'
 Plugin 'The-NERD-Commenter'
@@ -95,6 +97,11 @@ Plugin 'altercation/vim-colors-solarized'
 Plugin 'git://fedorapeople.org/home/fedora/wwoods/public_git/vim-scripts.git'
 call vundle#end()
 filetype plugin indent on
+
+" >>> bufferline
+let g:bufferline_echo = 0
+let g:bufferline_active_buffer_left = '['
+let g:bufferline_active_buffer_right = ']'
 
 " >>> NERD-Commenter
 let NERDSpaceDelims = 1
@@ -134,7 +141,7 @@ if &term =~ 'xterm'
     set laststatus=2
     set t_Co=256
     let g:airline_powerline_fonts = 1
-    let g:airline#extensions#tabline#enabled = 1
+    let g:airline#extensions#tabline#enabled = 0
     let g:airline_theme = 'murmur'
     " let g:airline#extensions#tabline#left_sep = ' '
     " let g:airline#extensions#tabline#left_alt_sep = '|'
@@ -189,6 +196,7 @@ if &term =~ 'xterm'
 
     " F11 Quickfix window toggle
     nnoremap <silent> <F11> :QFix<CR>
+    nnoremap <silent> <leader>q :QFix<CR>
 
     " F12 Marks-Browser toggle
     nnoremap <silent> <F12> :MarksBrowser<CR>
