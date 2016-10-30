@@ -15,9 +15,8 @@ set cindent
 set smartindent
 set hidden " Allowing switch to other buffer without saving
 
-" >>> CTRL+S to Save
-nnoremap <silent> <C-s> :w<CR>
-inoremap <silent> <C-s> <ESC>:w<cr>a
+let mapleader = ","
+nnoremap <silent> Y y$
 
 " >>> Search
 "set hlsearch " hightlight search
@@ -76,6 +75,9 @@ set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 Plugin 'a.vim'
 Plugin 'ctrlp.vim'
+Plugin 'tacahiroy/ctrlp-funky'
+Plugin 'Lokaltog/vim-easymotion'
+Plugin 'Raimondi/delimitMate'
 Plugin 'taglist.vim'
 Plugin 'surround.vim'
 Plugin 'The-NERD-Tree'
@@ -110,6 +112,8 @@ let g:ctrlp_custom_ignore = {
             \ 'file': '\v\.(exe|so|dll|o|lst)$',
             \ 'link': 'SOME_BAD_SYMBOLIC_LINKS',
             \ }
+let g:ctrlp_funky_syntax_highlight = 1
+let g:ctrlp_extensions = ['funky']
 
 " >>> <leader>h - Toggle between c/h file
 nnoremap <silent> <leader>h :A<CR>
@@ -119,7 +123,8 @@ if &term =~ 'xterm'
 
     " >>> Command complete
     set wildmenu
-    set wildmode=full
+    " set wildmode=full
+    set wildmode=list:longest
 
     " >>> Replace grep with ack
     set grepprg=ack\ --nogroup\ --column\ $*
