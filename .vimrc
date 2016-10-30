@@ -78,7 +78,7 @@ Plugin 'ctrlp.vim'
 Plugin 'tacahiroy/ctrlp-funky'
 Plugin 'Lokaltog/vim-easymotion'
 Plugin 'Raimondi/delimitMate'
-Plugin 'taglist.vim'
+Plugin 'majutsushi/tagbar'
 Plugin 'surround.vim'
 Plugin 'The-NERD-Tree'
 Plugin 'The-NERD-Commenter'
@@ -180,13 +180,12 @@ if &term =~ 'xterm'
 
     " F9 NERDTree window toggle
     nnoremap <silent> <F9> :NERDTreeToggle<CR>
+    nnoremap <silent> <leader>e :NERDTreeToggle<CR>
 
-    " F10 taglist window toggle
-    let Tlist_Close_On_Select=1 " close taglist window on select
-    let Tlist_File_Fold_Auto_Close=1 " Close tag folds for inactive buffers
-    let Tlist_GainFocus_On_ToggleOpen=1 " gain focus when taglist window open
-    let Tlist_Use_Right_Window=1 " show taglist on the right
-    nnoremap <silent> <F10> :TlistToggle<CR>
+    " F10 tagbar window toggle
+    nnoremap <silent> <F10> :TagbarToggle<CR>
+    nnoremap <silent> <leader>t :TagbarToggle<CR>
+    let g:tagbar_autofocus = 1
 
     " F11 Quickfix window toggle
     nnoremap <silent> <F11> :QFix<CR>
