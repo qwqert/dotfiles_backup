@@ -76,19 +76,16 @@ call vundle#begin()
 Plugin 'a.vim'
 Plugin 'ctrlp.vim'
 Plugin 'tacahiroy/ctrlp-funky'        "Simple function navigator for ctrlp.vim
-Plugin 'bling/vim-bufferline'         "Show the list of buffers in the command bar
 Plugin 'Raimondi/delimitMate'         "Provides insert mode auto-completion for quotes, parens, brackets, etc.
 Plugin 'gcmt/wildfire.vim'            "[Enter] Smart selection of the closest text object
 Plugin 'Lokaltog/vim-easymotion'
-Plugin 'majutsushi/tagbar' 
+Plugin 'majutsushi/tagbar'
 Plugin 'surround.vim'
 Plugin 'The-NERD-Tree'
 Plugin 'The-NERD-Commenter'
 Plugin 'xterm-color-table.vim'
 Plugin 'asins/vimcdoc'
 Plugin 'Yggdroot/indentLine'
-Plugin 'vim-scripts/ShowMarks7'
-Plugin 'vim-scripts/Marks-Browser'
 Plugin 'vim-scripts/QFixToggle'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
@@ -97,6 +94,14 @@ Plugin 'altercation/vim-colors-solarized'
 Plugin 'git://fedorapeople.org/home/fedora/wwoods/public_git/vim-scripts.git'
 call vundle#end()
 filetype plugin indent on
+
+" >>> surroud
+" old text                 Command     New text
+" "Hello *world!"          ds"         Hello world!
+" [123+4*56]/2             cs])        (123+456)/2
+" "Look ma, I'm *HTML!"    cs"<q>      <q>Look ma, I'm HTML!</q>
+" if *x>3 {                ysW(        if ( x>3 ) {
+" my $str = *whee!;        vllllS'     my $str = 'whee!'
 
 " >>> bufferline
 let g:bufferline_echo = 0
@@ -111,6 +116,10 @@ let NERDSpaceDelims = 1
 xmap <leader>a <Plug>(EasyAlign)
 " Start interactive EasyAlign for a motion/text object (e.g. gaip)
 nmap <leader>a <Plug>(EasyAlign)
+
+" >>> Easymotion
+" revert to the original leader
+map <Leader> <Plug>(easymotion-prefix)
 
 " >>> Open CtrlP buffer list
 let g:ctrlp_cmd = 'CtrlPBuffer'
@@ -141,7 +150,7 @@ if &term =~ 'xterm'
     set laststatus=2
     set t_Co=256
     let g:airline_powerline_fonts = 1
-    let g:airline#extensions#tabline#enabled = 0
+    let g:airline#extensions#tabline#enabled = 1
     let g:airline_theme = 'murmur'
     " let g:airline#extensions#tabline#left_sep = ' '
     " let g:airline#extensions#tabline#left_alt_sep = '|'
