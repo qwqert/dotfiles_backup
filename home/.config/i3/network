@@ -34,7 +34,7 @@ fi
 
 if [[ "$(cat /sys/class/net/$IF/operstate)" = 'down' ]]; then
   echo down # full text
-  echo down # short text
+  # echo down # short text
   echo \#FF3333 # color
   exit
 fi
@@ -53,4 +53,4 @@ IPADDR=$(ip addr show $IF | perl -n -e "/$AF ([^\/]+).* scope global/ && print \
 #------------------------------------------------------------------------
 
 echo "$IPADDR" # full text
-echo "$IPADDR" # short text
+# echo "$IPADDR" # short text
