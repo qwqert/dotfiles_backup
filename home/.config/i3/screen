@@ -1,23 +1,32 @@
 #!/bin/sh
-
 #This Script open/close screen saver and DPMS
 
-if [[ $BLOCK_BUTTON == 1 ]]; then
-    xset s on; xset +dpms
-elif [[ $BLOCK_BUTTON == 3 ]]; then
-    xset s off; xset -dpms
-fi
+backlight=$(xbacklight -get | awk '{print int(($1 + 0.5) / 10) * 10}')
+
+case $BLOCK_BUTTON in
+    1) 
+        xset s on; xset +dpms
+        ;;
+    3) 
+        xset s off; xset -dpms
+        ;;
+    4) 
+        xbacklight -inc 10
+        ;;
+    5) 
+        if [ ${backlight} -gt 10 ]; then 
+            xbacklight -dec 10 
+        fi
+        ;;
+esac
 
 status=$(xset -q | grep "DPMS is" | cut -f5 -d' ')
+backlight=$(xbacklight -get | awk '{print int(($1 + 0.5) / 10) * 10}')
 
-
-
+echo ${backlight}
 if [[ $status == "Disabled" ]]; then
-    echo off
-    echo
+    echo ${backlight}
     echo \#00ff00
-else
-    echo on
 fi
 
 exit 0

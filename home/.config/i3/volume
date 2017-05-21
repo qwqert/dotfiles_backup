@@ -40,7 +40,7 @@ else
 fi
 
 echo "$STATE"	# full_text
-echo "$STATE"	# short_text
-echo "$COLOR"	# color
+#echo "$STATE"	# short_text
+#echo "$COLOR"	# color
 
 exit 0

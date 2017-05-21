@@ -1,20 +1,28 @@
+Xft.dpi:144
 !===============================
 ! – Setting for xterm
 ! ——————–
 XTerm*locale: true
 Xterm*utf8: true
 XTerm*utf8Title: true
-xterm*xftAntialias:true
+Xterm*xftAntialias:true
 XTerm*fontMenu*fontdefault*Label: Default
-!XTerm*faceName:DejaVu Sans Mono:antialias=True:pixelsize=14
+XTerm*faceName:DejaVu Sans Mono
 !XTerm*faceName: Source Code Pro for Powerline:pixelsize=14
-XTerm*faceName:inconsolata for powerline:pixelsize=16
-XTerm*faceNameDoublesize:Source Han Sans CN:antialias=True:pixelsize=16
-!XTerm*faceNameDoublesize:WenQuanYi Micro Hei:antialias=True:pixelsize=16
+!XTerm*faceName:Inconsolata-dz for Powerline:Pixelsize=16
+XTerm*faceNameDoublesize:Source Han Sans CN
+XTerm*faceSize:10
 XTerm*inputMethod: ibus
 XTerm*background: #1C1C1C
 XTerm*foreground: #FFFFFF
-!XTerm*VT100.translations: #override : select-end(CLIPBOARD, CUT_BUFFER0)
+
+*VT100*translations:    #override \n\
+        ~Shift~Ctrl<Btn2Up>: insert-selection(PRIMARY, CUT_BUFFER0) \n\
+        Shift~Ctrl<Btn2Up>:  insert-selection(CLIPBOARD, CUT_BUFFER1) \n\
+        ~Shift<BtnUp>:       select-end(PRIMARY, CUT_BUFFER0) \n\
+        Shift<BtnUp>:        select-end(CLIPBOARD, CUT_BUFFER1)
+
+
 !———————-
 !- End of setting Xterm
 !=========================

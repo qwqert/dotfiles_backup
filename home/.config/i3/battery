@@ -1,13 +1,22 @@
 #!/bin/sh
+
 status=$(cat /sys/class/power_supply/BAT0/status)
 capacity=$(cat /sys/class/power_supply/BAT0/capacity)
-echo $capacity
-echo $capacity
+
+if [ ${capacity} -gt 100 ]; then
+    capacity=100
+fi
+
+echo ${capacity}
 case ${status} in
 "Discharging")
-    echo \#ff3333
+    echo ${capacity}
+    if [ ${capacity} -lt 30 ]; then
+        echo \#ff3333
+    fi
     ;;
 "Charging")
+    echo ${capacity}
     echo \#33ff33
     ;;
 esac
