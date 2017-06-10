@@ -75,9 +75,10 @@ set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 Plugin 'a.vim'
 Plugin 'ctrlp.vim'
+Plugin 'autoload_cscope.vim'
 Plugin 'tacahiroy/ctrlp-funky'        "Simple function navigator for ctrlp.vim
 Plugin 'Raimondi/delimitMate'         "Provides insert mode auto-completion for quotes, parens, brackets, etc.
-Plugin 'gcmt/wildfire.vim'            "[Enter] Smart selection of the closest text object
+"Plugin 'gcmt/wildfire.vim'            "[Enter] Smart selection of the closest text object
 Plugin 'Lokaltog/vim-easymotion'
 Plugin 'majutsushi/tagbar'
 Plugin 'surround.vim'
@@ -197,6 +198,7 @@ if &term =~ 'xterm'
     " F9 NERDTree window toggle
     nnoremap <silent> <F9> :NERDTreeToggle<CR>
     nnoremap <silent> <leader>e :NERDTreeToggle<CR>
+    nnoremap <silent> <leader>r :NERDTreeFind<CR>
 
     " F10 tagbar window toggle
     nnoremap <silent> <F10> :TagbarToggle<CR>
