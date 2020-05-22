@@ -73,14 +73,16 @@ endfunction
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
-Plugin 'a.vim'
-Plugin 'ctrlp.vim'
+" Plugin 'a.vim'
+" Plugin 'ctrlp.vim'
+" Plugin 'tacahiroy/ctrlp-funky'        "Simple function navigator for ctrlp.vim
+Plugin 'Yggdroot/LeaderF'
 Plugin 'autoload_cscope.vim'
-Plugin 'tacahiroy/ctrlp-funky'        "Simple function navigator for ctrlp.vim
-Plugin 'Raimondi/delimitMate'         "Provides insert mode auto-completion for quotes, parens, brackets, etc.
+" Plugin 'Raimondi/delimitMate'         "Provides insert mode auto-completion for quotes, parens, brackets, etc.
 "Plugin 'gcmt/wildfire.vim'            "[Enter] Smart selection of the closest text object
 Plugin 'Lokaltog/vim-easymotion'
-Plugin 'majutsushi/tagbar'
+" Plugin 'majutsushi/tagbar'
+Plugin 'repeat.vim'
 Plugin 'surround.vim'
 Plugin 'The-NERD-Tree'
 Plugin 'The-NERD-Commenter'
@@ -90,7 +92,7 @@ Plugin 'Yggdroot/indentLine'
 Plugin 'vim-scripts/QFixToggle'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
-Plugin 'junegunn/vim-easy-align'
+" Plugin 'junegunn/vim-easy-align'
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'git://fedorapeople.org/home/fedora/wwoods/public_git/vim-scripts.git'
 call vundle#end()
@@ -131,6 +133,20 @@ let g:ctrlp_custom_ignore = {
             \ }
 let g:ctrlp_funky_syntax_highlight = 1
 let g:ctrlp_extensions = ['funky']
+
+" >>> LeaderF
+let g:Lf_WindowHeight = 10
+let g:Lf_StlColorscheme = 'powerline'
+let g:Lf_WildIgnore = {
+            \ 'dir' : ['.svn', '.git', '.hg'],
+            \ 'file' : ['*.sw?', '~$*', '*.bak', '*.o', '*.so', '*.py[co]']
+            \ }
+let g:Lf_WorkingDirectoryMode = 'Ac'
+let g:Lf_previewResult = { 'Function' : 0 }
+let g:Lf_ShortcutF = '<C-P>'
+let g:Lf_ShortcutB = '<C-B>'
+nnoremap <silent> <C-f> :LeaderfFunction<Cr>
+nnoremap <silent> <C-g> :LeaderfFunctionAll<Cr>
 
 " >>> <leader>h - Toggle between c/h file
 nnoremap <silent> <leader>h :A<CR>

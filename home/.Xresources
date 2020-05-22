@@ -5,23 +5,23 @@ Xft.dpi:144
 XTerm*locale: true
 Xterm*utf8: true
 XTerm*utf8Title: true
-Xterm*xftAntialias:true
+Xterm*xftAntialias: true
 XTerm*fontMenu*fontdefault*Label: Default
-XTerm*faceName:DejaVu Sans Mono
-!XTerm*faceName: Source Code Pro for Powerline:pixelsize=14
-!XTerm*faceName:Inconsolata-dz for Powerline:Pixelsize=16
-XTerm*faceNameDoublesize:Source Han Sans CN
-XTerm*faceSize:10
-XTerm*inputMethod: ibus
+XTerm*faceName: DejaVu Sans Mono
+XTerm*faceNameDoublesize: Source Han Sans CN
+XTerm*faceSize: 10
+XTerm*inputMethod: fcitx
 XTerm*background: #1C1C1C
 XTerm*foreground: #FFFFFF
+XTerm.vt100.metaSendsEscape: true
 
 *VT100*translations:    #override \n\
         ~Shift~Ctrl<Btn2Up>: insert-selection(PRIMARY, CUT_BUFFER0) \n\
         Shift~Ctrl<Btn2Up>:  insert-selection(CLIPBOARD, CUT_BUFFER1) \n\
         ~Shift<BtnUp>:       select-end(PRIMARY, CUT_BUFFER0) \n\
         Shift<BtnUp>:        select-end(CLIPBOARD, CUT_BUFFER1)
-
+XTerm*on2Clicks: regex [^]\[ ,:;<>\(\)\n]+
+XTerm*on3Clicks: regex ^.*$
 
 !———————-
 !- End of setting Xterm

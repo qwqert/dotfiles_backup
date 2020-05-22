@@ -6,6 +6,7 @@ ZSH=/usr/share/oh-my-zsh/
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
 ZSH_THEME="my_magic"
+# ZSH_THEME="agnoster"
 
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
@@ -54,7 +55,7 @@ source $ZSH/oh-my-zsh.sh
 
 # User configuration
 
-export PATH=$HOME/Projects/Pebble/pebble-dev/pebble-sdk-4.2.1-linux64/bin:$HOME/bin:/usr/local/bin:$PATH
+export PATH=$HOME/bin:/usr/local/bin:$PATH
 # export MANPATH="/usr/local/man:$MANPATH"
 
 # You may need to manually set your language environment
@@ -79,16 +80,18 @@ stty ixoff -ixon
 stty stop undef
 stty start undef
 
-alias ll='ls -lh --time-style=long'
-alias la='ls -alh --time-style=long'
+alias ll='ls -l --time-style=long'
+alias la='ls -al --time-style=long'
+alias lh='ls -alh --time-style=long'
 alias ccal='ccal -u'
-alias hddtemp='sudo hddtemp'
 alias wps='wps -style gtk'                                                      
 alias et='et -style gtk'
 alias wpp='wpp -style gtk'
 alias grep='grep --color=auto'
 alias fgrep='fgrep --color=auto'
-alias hc='herbstclient'
+alias top='htop'
+alias bat='upower -i /org/freedesktop/UPower/devices/battery_BAT0'
+alias feh='feh --scale-down'
 
 extract() {
     if [ -f $1 ] ; then
@@ -131,13 +134,13 @@ export LESS="-R"
 export GST_ID3_TAG_ENCODING=GBK:UTF-8:GB18030
 export GST_ID3V2_TAG_ENCODING=GBK:UTF-8:GB18030
 
-export QT_STYLE_OVERRIDE=gtk
+# export QT_STYLE_OVERRIDE=gtk
+export QT_QPA_PLATFORMTHEME=qt5ct
 # Anti-aliasing of fonts in java
 export _JAVA_OPTIONS='-Dawt.useSystemAAFontSettings=on'
 
 unset GREP_OPTIONS
 #zsh-syntax-highlighting
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-
-alias arm='source $(which arm-gnueabihf.sh)'
-alias peb='source /home/czq/Projects/Pebble/pebble-dev/pebble-sdk-4.2.1-linux64/.env/bin/activate'
+source /usr/share/fzf/key-bindings.zsh
+source /usr/share/fzf/completion.zsh
