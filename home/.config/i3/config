@@ -139,6 +139,9 @@ assign [class="Claws-mail"] "Mail"
 for_window [class="Claws-mail"] focus
 assign [class="Gimp"] "Gimp"
 for_window [class="Gimp"] focus
+for_window [class="Gcolor3"] floating enable
+for_window [class="Lxappearance"] floating enable
+for_window [class="fcitx5*"] floating enable
 
 # move focused container to workspace
 bindsym $mod+Shift+1 move container to workspace 1
@@ -172,7 +175,7 @@ client.placeholder      #000000 #0c0c0c #efefef #000000
 bar {
     #output eDP1
     position top
-    status_command i3blocks -c ~/.config/i3/i3blocks.conf
+    status_command i3blocks -c ~/.config/i3/i3blocks.conf 
     workspace_buttons yes
     tray_output       none
     font pango:WenQuanYi MicroHei, awesome 8 
@@ -187,7 +190,12 @@ bar {
 # bindsym $mod+m bar mode toggle
 
 # start dmenu (a program launcher)
-bindsym $mod+r exec dmenu_run -b
+#bindsym $mod+r exec dmenu_run -b
+
+# start rofi
+bindsym $mod+r exec rofi -show drun
+bindsym $mod+w exec rofi -show window
+
 # There also is the (new) i3-dmenu-desktop which only displays applications
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
 # installed.
@@ -199,8 +207,6 @@ bindsym $mod+r exec dmenu_run -b
 # start a terminal
 bindsym $mod+Return exec xterm
 
-bindsym $mod+w exec thunar
-bindsym $mod+m exec claws-mail
 bindsym $mod+s exec flameshot gui
 
 # autostart
@@ -209,4 +215,4 @@ exec --no-startup-id nitrogen --restore
 #exec --no-startup-id pgrep compton || compton -b
 exec --no-startup-id /usr/lib/mate-polkit/polkit-mate-authentication-agent-1 &
 #exec --no-startup-id pgrep ibus-daemon || ibus-daemon -drx & #--panel=disable &
-exec --no-startup-id pgrep fcitx || fcitx -r & #--panel=disable &
+exec --no-startup-id pgrep fcitx5 || fcitx5 &

@@ -10,7 +10,7 @@ XTerm*fontMenu*fontdefault*Label: Default
 XTerm*faceName: DejaVu Sans Mono
 XTerm*faceNameDoublesize: Source Han Sans CN
 XTerm*faceSize: 10
-XTerm*inputMethod: fcitx
+XTerm*inputMethod: fcitx5
 XTerm*background: #1C1C1C
 XTerm*foreground: #FFFFFF
 XTerm.vt100.metaSendsEscape: true
