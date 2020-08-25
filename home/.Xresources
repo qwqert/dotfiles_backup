@@ -2,12 +2,13 @@ Xft.dpi:144
 !===============================
 ! – Setting for xterm
 ! ——————–
+XTerm*termName: xterm-256color
 XTerm*locale: true
 Xterm*utf8: true
 XTerm*utf8Title: true
 Xterm*xftAntialias: true
 XTerm*fontMenu*fontdefault*Label: Default
-XTerm*faceName: DejaVu Sans Mono
+XTerm*faceName: DejaVu Sans Mono for Powerline
 XTerm*faceNameDoublesize: Source Han Sans CN
 XTerm*faceSize: 10
 XTerm*inputMethod: fcitx5
