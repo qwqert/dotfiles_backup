@@ -152,83 +152,79 @@ nnoremap <silent> <C-g> :LeaderfFunctionAll<Cr>
 nnoremap <silent> <leader>h :A<CR>
 
 
-if &term =~ 'xterm'
+" >>> Command complete
+set wildmenu
+" set wildmode=full
+set wildmode=list:longest
 
-    " >>> Command complete
-    set wildmenu
-    " set wildmode=full
-    set wildmode=list:longest
+" >>> Replace grep with ack
+set grepprg=ack\ --nogroup\ --column\ $*
+set grepformat=%f:%l:%c:%m
 
-    " >>> Replace grep with ack
-    set grepprg=ack\ --nogroup\ --column\ $*
-    set grepformat=%f:%l:%c:%m
+" >>> Airline
+set laststatus=2
+set t_Co=256
+let g:airline_powerline_fonts = 1
+let g:airline#extensions#tabline#enabled = 1
+let g:airline_theme = 'murmur'
+" let g:airline#extensions#tabline#left_sep = ' '
+" let g:airline#extensions#tabline#left_alt_sep = '|'
 
-    " >>> Airline
-    set laststatus=2
-    set t_Co=256
-    let g:airline_powerline_fonts = 1
-    let g:airline#extensions#tabline#enabled = 1
-    let g:airline_theme = 'murmur'
-    " let g:airline#extensions#tabline#left_sep = ' '
-    " let g:airline#extensions#tabline#left_alt_sep = '|'
+" >>> Theme
+"set t_Co=256
+set background=dark
+let g:solarized_termcolors=256
+colorscheme solarized
 
-    " >>> Theme
-    "set t_Co=256
-    set background=dark
-    let g:solarized_termcolors=256
-    colorscheme solarized
+" >>> Function keys
 
-    " >>> Function keys
+" F1 Hightlight search
+nnoremap <silent> <F1> :set hlsearch! hlsearch?<CR>
 
-    " F1 Hightlight search
-    nnoremap <silent> <F1> :set hlsearch! hlsearch?<CR>
+" F2 ShowMarks toggle
+let showmarks_include="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+let showmarks_ignore_type="hqm"
+let g:showmarks_hlline_lower=1
+let g:showmarks_hlline_upper=1
+hi ShowMarksHLl ctermbg=Yellow   ctermfg=Black  guibg=#FFDB72 guifg=Black
+hi ShowMarksHLu ctermbg=Magenta  ctermfg=Black  guibg=#FFB3FF guifg=Black
+nnoremap <silent> <F2> :ShowMarksToggle<CR>
 
-    " F2 ShowMarks toggle
-    let showmarks_include="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
-    let showmarks_ignore_type="hqm"
-    let g:showmarks_hlline_lower=1
-    let g:showmarks_hlline_upper=1
-    hi ShowMarksHLl ctermbg=Yellow   ctermfg=Black  guibg=#FFDB72 guifg=Black
-    hi ShowMarksHLu ctermbg=Magenta  ctermfg=Black  guibg=#FFB3FF guifg=Black
-    nnoremap <silent> <F2> :ShowMarksToggle<CR>
+" F3 Show listchars
+set listchars=tab:»·,nbsp:·,trail:·
+nnoremap <silent> <F3> :set list! list?<CR>
 
-    " F3 Show listchars
-    set listchars=tab:»·,nbsp:·,trail:·
-    nnoremap <silent> <F3> :set list! list?<CR>
+" F4 Toggle IndentLines
+let g:indentLine_enabled = 0
+let g:indentLine_color_term = 236
+nnoremap <silent> <F4> :IndentLinesToggle<CR>
 
-    " F4 Toggle IndentLines
-    let g:indentLine_enabled = 0
-    let g:indentLine_color_term = 236
-    nnoremap <silent> <F4> :IndentLinesToggle<CR>
+" F5 Toggle wrap
+nnoremap <silent> <F5> :set wrap! wrap?<CR>
 
-    " F5 Toggle wrap
-    nnoremap <silent> <F5> :set wrap! wrap?<CR>
+" F6 Paste toggle
+nnoremap <silent> <F6> :set paste! paste?<CR>
 
-    " F6 Paste toggle
-    nnoremap <silent> <F6> :set paste! paste?<CR>
+" F8 Update ctags
+set tags+=./../tags,./../../tags,./../../../tags,./../../../../tags
+nnoremap <silent> <F8> :!ctags -R<CR>
 
-    " F8 Update ctags
-    set tags+=./../tags,./../../tags,./../../../tags,./../../../../tags
-    nnoremap <silent> <F8> :!ctags -R<CR>
+" F9 NERDTree window toggle
+nnoremap <silent> <F9> :NERDTreeToggle<CR>
+nnoremap <silent> <leader>e :NERDTreeToggle<CR>
+nnoremap <silent> <leader>r :NERDTreeFind<CR>
 
-    " F9 NERDTree window toggle
-    nnoremap <silent> <F9> :NERDTreeToggle<CR>
-    nnoremap <silent> <leader>e :NERDTreeToggle<CR>
-    nnoremap <silent> <leader>r :NERDTreeFind<CR>
+" F10 tagbar window toggle
+nnoremap <silent> <F10> :TagbarToggle<CR>
+nnoremap <silent> <leader>t :TagbarToggle<CR>
+let g:tagbar_autofocus = 1
 
-    " F10 tagbar window toggle
-    nnoremap <silent> <F10> :TagbarToggle<CR>
-    nnoremap <silent> <leader>t :TagbarToggle<CR>
-    let g:tagbar_autofocus = 1
+" F11 Quickfix window toggle
+nnoremap <silent> <F11> :QFix<CR>
+nnoremap <silent> <leader>q :QFix<CR>
 
-    " F11 Quickfix window toggle
-    nnoremap <silent> <F11> :QFix<CR>
-    nnoremap <silent> <leader>q :QFix<CR>
-
-    " F12 Marks-Browser toggle
-    nnoremap <silent> <F12> :MarksBrowser<CR>
-
-endif
+" F12 Marks-Browser toggle
+nnoremap <silent> <F12> :MarksBrowser<CR>
 
 " >>> Templates
 autocmd BufNewFile *.sh,*.py call SetFileHead()
