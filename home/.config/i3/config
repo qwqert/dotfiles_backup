@@ -205,8 +205,8 @@ bindsym $mod+w exec rofi -show window
 #bindsym $mod+Pause exec $Locker, mode "default"
 
 # start a terminal
-bindsym $mod+Return exec xterm
-# bindsym $mod+Return exec st
+bindsym $mod+Return exec st
+bindsym $mod+t exec xterm
 
 bindsym $mod+s exec flameshot gui
 

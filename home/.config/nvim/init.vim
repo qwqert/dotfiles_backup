@@ -4,7 +4,7 @@ set syntax=c
 set number
 set nowrap
 set nopaste
-set tabstop=8
+set tabstop=4
 set shiftwidth=4
 set expandtab
 set autoindent
@@ -24,6 +24,7 @@ set termencoding=utf-8
 
 " 设置文件编码检测类型及支持格式
 set fencs=utf-8,gbk,ucs-bom,gb18030,gb2312,cp936
+set listchars=tab:»·,nbsp:·,trail:·
 
 " >>> Buffer list (show buffer list: ls)
 nnoremap <silent> [b :bprevious<CR>
@@ -70,15 +71,21 @@ autocmd BufReadPre * let f=expand("<afile>") | if getfsize(f)
 let mapleader = ","
 
 call plug#begin(stdpath('data').'/plugged')
+"--> Utils
+Plug 'skywind3000/vim-quickui'
 Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
 Plug 'scrooloose/nerdcommenter'
 Plug 'junegunn/vim-easy-align'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
+
+"--> Themes, fonts, icons
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'altercation/vim-colors-solarized'
-Plug 'skywind3000/vim-quickui'
+Plug 'ryanoasis/vim-devicons'
+
+"--> Auto completion
 "Plug 'neoclide/coc.nvim'
 call plug#end()
 
@@ -94,7 +101,7 @@ nmap <leader>a <Plug>(EasyAlign)
 " >>> LeaderF
 let g:Lf_WindowPosition = 'popup'
 let g:Lf_PreviewInPopup = 1
-let g:Lf_ShowDevIcons = 0
+let g:Lf_ShowDevIcons = 1
 let g:Lf_WindowHeight = 10
 let g:Lf_StlColorscheme = 'powerline'
 let g:Lf_StlSeparator = { 'left': '', 'right': '' }
@@ -133,20 +140,21 @@ call quickui#menu#reset()
 
 call quickui#menu#install("&Display", [
    \ [ "Toggle hl&search", 'set hlsearch! hlsearch?'],
-   \ [ "Toggle &wrap", 'set wrap! wrap?'],
-   \ [ "Toggle &paste", 'set paste! paste?'],
+   \ [ "Toggle l&ist",     'set list! list?'],
+   \ [ "Toggle &wrap",     'set wrap! wrap?'],
+   \ [ "Toggle &paste",    'set paste! paste?'],
    \ ])
 
 call quickui#menu#install("&Plugin", [
-   \ [ "Commenter comment\t(<leader>cc)", 'normal ,cc', 'Comment out the current line or text selected in visual mode'],
-   \ [ "Commenter comment\t(<leader>cs)", 'normal ,cs', 'Comments out the selected lines sexily'],
+   \ [ "Commenter comment\t(<leader>cc)",   'normal ,cc', 'Comment out the current line or text selected in visual mode'],
+   \ [ "Commenter comment\t(<leader>cs)",   'normal ,cs', 'Comments out the selected lines sexily'],
    \ [ "Commenter uncomment\t(<leader>cu)", 'normal ,cu', 'Uncomments the selected line(s)'],
    \ [ "-"],
    \ [ "EasyAlign align\t(vip<leader>a=)", 'normal vip,a=', 'Align align inner paragraph by ='],
    \ [ "-"],
-   \ [ "LeaderF File\t(C-p)", 'LeaderfFile', 'List files in leaderf'],
-   \ [ "LeaderF Buffer\t(C-b)", 'LeaderfBuffer', 'List current buffers in leaderf'],
-   \ [ "LeaderF Funcion\t(C-f)", 'LeaderfFunction', 'List current functions with leaderf'],
+   \ [ "LeaderF File\t(C-p)",        'LeaderfFile',        'List files in leaderf'],
+   \ [ "LeaderF Buffer\t(C-b)",      'LeaderfBuffer',      'List current buffers in leaderf'],
+   \ [ "LeaderF Funcion\t(C-f)",     'LeaderfFunction',    'List current functions with leaderf'],
    \ [ "LeaderF All Funcion\t(C-g)", 'LeaderfFunctionAll', 'List all functions with leaderf'],
    \ [ "-"],
    \ [ "Plugin Status", "PlugStatus", "Show plugin status"],
@@ -154,9 +162,10 @@ call quickui#menu#install("&Plugin", [
    \ ])
 
 call quickui#menu#install("&Config", [
-   \ [ "Vim configuration", "e ~/.config/nvim/init.vim", "Edit ~/.config/nvim/init.vim"],
-   \ [ "I3wm configuration", "e ~/.config/i3/config", "Edit ~/.config/i3/config"],
-   \ [ "Polybar configuration", "e ~/.config/polybar/config", "Edit ~/.config/polybar/config"],
+   \ [ "Vim configuration",     "e ~/.config/nvim/init.vim",    "Edit ~/.config/nvim/init.vim"],
+   \ [ "I3wm configuration",    "e ~/.config/i3/config",        "Edit ~/.config/i3/config"],
+   \ [ "Polybar configuration", "e ~/.config/polybar/config",   "Edit ~/.config/polybar/config"],
+   \ [ "Rofi configuration",    "e ~/.config/rofi/config.rasi", "Edit ~/.config/rofi/config.rasi"],
    \ ])
 
 let g:quickui_show_tip = 1
