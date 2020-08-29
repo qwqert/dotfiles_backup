@@ -206,7 +206,7 @@ bindsym $mod+w exec rofi -show window
 
 # start a terminal
 bindsym $mod+Return exec xterm
-#bindsym $mod+Return exec termite
+# bindsym $mod+Return exec st
 
 bindsym $mod+s exec flameshot gui
 
