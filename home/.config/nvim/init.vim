@@ -153,6 +153,12 @@ call quickui#menu#install("&Plugin", [
    \ [ "Plugin Update", "PlugUpdate", "Update plugins"],
    \ ])
 
+call quickui#menu#install("&Config", [
+   \ [ "Vim configuration", "e ~/.config/nvim/init.vim", "Edit ~/.config/nvim/init.vim"],
+   \ [ "I3wm configuration", "e ~/.config/i3/config", "Edit ~/.config/i3/config"],
+   \ [ "Polybar configuration", "e ~/.config/polybar/config", "Edit ~/.config/polybar/config"],
+   \ ])
+
 let g:quickui_show_tip = 1
 let g:quickui_border_style = 2
 let g:quickui_color_scheme = 'solarized'
