@@ -40,12 +40,6 @@ nnoremap <silent> ]a :pnext<CR>
 nnoremap <silent> [A :first<CR>
 nnoremap <silent> ]A :last<CR>
 
-" >>> Quickfix list (show quickfix window: copen)
-nnoremap <silent> [c :cprevious<CR>zz
-nnoremap <silent> ]c :cnext<CR>zz
-nnoremap <silent> [C :cfirst<CR>zz
-nnoremap <silent> ]C :clast<CR>zz
-
 " >>> Tag list of ctags (show tag select window: tselect)
 " nnoremap <silent> <C-]> g<C-]> " show tselect list when mulpitle results
 nnoremap <silent> [t :tprevious<CR>
@@ -72,12 +66,16 @@ let mapleader = ","
 
 call plug#begin(stdpath('data').'/plugged')
 "--> Utils
-Plug 'skywind3000/vim-quickui'
 Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
+Plug 'airblade/vim-gitgutter'
 Plug 'scrooloose/nerdcommenter'
 Plug 'junegunn/vim-easy-align'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
+
+"--> start screen, menu
+Plug 'mhinz/vim-startify'
+Plug 'skywind3000/vim-quickui'
 
 "--> Themes, fonts, icons
 Plug 'vim-airline/vim-airline'
@@ -117,6 +115,21 @@ let g:Lf_ShortcutB = '<C-B>'
 nnoremap <silent> <C-f> :LeaderfFunction<Cr>
 nnoremap <silent> <C-g> :LeaderfFunctionAll<Cr>
 
+" >>> GitGutter
+let g:gitgutter_enabled = 0
+let g:gitgutter_signs = 1
+let g:gitgutter_highlight_linenrs = 0
+let g:gitgutter_highlight_lines = 1
+
+" >>> Startify
+let g:ascii = [
+             \ '   | \ | | ___  _____   _(_)_ __ ___     ',
+             \ '   |  \| |/ _ \/ _ \ \ / / | ''_ ` _ \    ',
+             \ '   | |\  |  __/ (_) \ V /| | | | | | |   ',
+             \ '   |_| \_|\___|\___/ \_/ |_|_| |_| |_|   ',
+             \]
+let g:startify_custom_header = g:ascii
+
 " >>> Airline
 set laststatus=2
 set t_Co=256
@@ -146,6 +159,10 @@ call quickui#menu#install("&Display", [
    \ ])
 
 call quickui#menu#install("&Plugin", [
+   \ [ "GitGutter toggle on/off",   'GitGutterToggle', 'Toggle vim-gitgutter off and on '],
+   \ [ "GitGutter next change\t(]c)",     'normal ]c',       'jump to next hunk (change)'],
+   \ [ "GitGutter previous change\t([c)", 'normal [c',       'jump to previous hunk (change)'],
+   \ [ "-"],
    \ [ "Commenter comment\t(<leader>cc)",   'normal ,cc', 'Comment out the current line or text selected in visual mode'],
    \ [ "Commenter comment\t(<leader>cs)",   'normal ,cs', 'Comments out the selected lines sexily'],
    \ [ "Commenter uncomment\t(<leader>cu)", 'normal ,cu', 'Uncomments the selected line(s)'],
@@ -157,8 +174,9 @@ call quickui#menu#install("&Plugin", [
    \ [ "LeaderF Funcion\t(C-f)",     'LeaderfFunction',    'List current functions with leaderf'],
    \ [ "LeaderF All Funcion\t(C-g)", 'LeaderfFunctionAll', 'List all functions with leaderf'],
    \ [ "-"],
-   \ [ "Plugin Status", "PlugStatus", "Show plugin status"],
-   \ [ "Plugin Update", "PlugUpdate", "Update plugins"],
+   \ [ "Plugin Install", "PlugInstall", "Install plugins"],
+   \ [ "Plugin Update",  "PlugUpdate",  "Update plugins"],
+   \ [ "Plugin Status",  "PlugStatus",  "Show plugin status"],
    \ ])
 
 call quickui#menu#install("&Config", [
