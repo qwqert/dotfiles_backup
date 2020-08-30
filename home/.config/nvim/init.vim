@@ -1,5 +1,4 @@
 " >>> Basic
-set nocompatible
 set syntax=c
 set number
 set nowrap
@@ -10,12 +9,12 @@ set expandtab
 set autoindent
 set cindent
 set smartindent
-set hidden " allowing switch to other buffer without saveing
+set hidden
 set splitright
-set backspace=indent,eol,start " make that backspace key work the way it should
-
-" 当文件在外部被修改，自动更新该文件
-set autoread 
+set backspace=indent,eol,start
+set listchars=tab:»·,nbsp:·,trail:·
+set updatetime=300
+set autoread
 
 " >>> Encodings
 set encoding=utf-8
@@ -24,7 +23,6 @@ set termencoding=utf-8
 
 " 设置文件编码检测类型及支持格式
 set fencs=utf-8,gbk,ucs-bom,gb18030,gb2312,cp936
-set listchars=tab:»·,nbsp:·,trail:·
 
 " >>> Buffer list (show buffer list: ls)
 nnoremap <silent> [b :bprevious<CR>
@@ -65,6 +63,7 @@ autocmd BufReadPre * let f=expand("<afile>") | if getfsize(f)
 let mapleader = ","
 
 call plug#begin(stdpath('data').'/plugged')
+
 "--> Utils
 Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
 Plug 'airblade/vim-gitgutter'
@@ -85,7 +84,13 @@ Plug 'ryanoasis/vim-devicons'
 
 "--> Auto completion
 "Plug 'neoclide/coc.nvim'
+
 call plug#end()
+
+" >>> Vim colors solarized
+set background=dark
+let g:solarized_termcolors = 256
+colorscheme solarized
 
 " >>> NERD_commenter
 let NERDSpaceDelims = 1
@@ -124,7 +129,7 @@ let g:gitgutter_highlight_lines = 1
 " >>> Startify
 let g:ascii = [
              \ '   | \ | | ___  _____   _(_)_ __ ___     ',
-             \ '   |  \| |/ _ \/ _ \ \ / / | ''_ ` _ \    ',
+             \ '   |  \| |/ _ \/ _ \ \ / / | ''_ ` _ \   ',
              \ '   | |\  |  __/ (_) \ V /| | | | | | |   ',
              \ '   |_| \_|\___|\___/ \_/ |_|_| |_| |_|   ',
              \]
@@ -139,12 +144,6 @@ let g:airline#extensions#whitespace#enabled = 0 " show trailing-white-space and 
 let g:airline_theme = 'murmur'
 let g:airline#extensions#tabline#left_sep = ' '
 let g:airline#extensions#tabline#left_alt_sep = '|'
-
-" >>> Theme
-set background=dark
-let g:solarized_termcolors=256
-colorscheme solarized
-
 
 " >>> quickui
 

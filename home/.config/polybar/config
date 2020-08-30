@@ -57,7 +57,7 @@ label-active-font = 4
 
 modules-left = i3
 modules-center = xwindow
-modules-right = pulseaudio cpu memory wlan battery date
+modules-right = backlight-acpi pulseaudio cpu memory wlan battery date
 
 tray-position = right
 tray-padding = 2
@@ -181,6 +181,21 @@ inherit = module/xbacklight
 type = internal/backlight
 card = intel_backlight
 enable-scroll = true
+format = <bar> <label>
+format-prefix = "  "
+format-prefix-foreground = ${colors.foreground-alt}
+label = %percentage:3%%
+
+bar-width = 10
+bar-indicator = |
+bar-indicator-foreground = #fff
+bar-indicator-font = 2
+bar-fill = ─
+bar-fill-font = 2
+bar-fill-foreground = #9f78e1
+bar-empty = ─
+bar-empty-font = 2
+bar-empty-foreground = ${colors.foreground-alt}
 
 [module/cpu]
 type = internal/cpu
@@ -207,7 +222,7 @@ format-connected-prefix = ""
 format-connected-prefix-foreground = ${colors.foreground-alt}
 format-connected = <label-connected>
 format-connected-underline = #6df287
-label-connected = " %local_ip%"
+label-connected = "  %essid%"
 
 format-disconnected-prefix = ""
 format-disconnected-prefix-foreground = ${colors.foreground-alt}

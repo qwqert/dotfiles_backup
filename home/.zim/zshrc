@@ -145,6 +145,7 @@ alias top='htop'
 alias bat='upower -i /org/freedesktop/UPower/devices/battery_BAT0'
 alias feh='feh --scale-down'
 alias vim='nvim'
+alias ra='ranger'
 
 source /usr/share/fzf/key-bindings.zsh
 source /usr/share/fzf/completion.zsh
