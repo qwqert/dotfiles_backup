@@ -40,10 +40,10 @@ nnoremap <silent> [A :first<CR>
 nnoremap <silent> ]A :last<CR>
 
 " >>> Quickfix list (show quickfix window: copen)
-nnoremap <silent> [c :cprevious<CR>
-nnoremap <silent> ]c :cnext<CR>
-nnoremap <silent> [C :cfirst<CR>
-nnoremap <silent> ]C :clast<CR>
+nnoremap <silent> [c :cprevious<CR>zz
+nnoremap <silent> ]c :cnext<CR>zz
+nnoremap <silent> [C :cfirst<CR>zz
+nnoremap <silent> ]C :clast<CR>zz
 
 " >>> Tag list of ctags (show tag select window: tselect)
 " nnoremap <silent> <C-]> g<C-]> " show tselect list when mulpitle results
@@ -96,7 +96,7 @@ call plug#end()
 
 " >>> Vim colors solarized
 set background=dark
-let g:solarized_termcolors = 256
+let g:solarized_termcolors=256
 colorscheme solarized
 
 " >>> NERD_commenter
@@ -110,11 +110,13 @@ nmap <leader>a <Plug>(EasyAlign)
 
 " >>> LeaderF
 let g:Lf_WindowPosition = 'bottom'
+let g:Lf_PopupShowStatusline = 0
 let g:Lf_PreviewInPopup = 1
 let g:Lf_ShowDevIcons = 1
 let g:Lf_WindowHeight = 10
 let g:Lf_GtagsAutoGenerate = 0
 let g:Lf_GtagsAutoUpdate = 0
+let g:Lf_GtagsSkipUnreadable = 1
 let g:Lf_StlColorscheme = 'powerline'
 let g:Lf_StlSeparator = { 'left': '', 'right': '' }
 let g:Lf_WildIgnore = {
@@ -130,13 +132,16 @@ nnoremap <silent> <C-f> :LeaderfFunction<Cr>
 nnoremap <silent> <C-g> :LeaderfFunctionAll<Cr>
 nnoremap <silent> <leader>fp :Leaderf file<Cr>
 nnoremap <silent> <leader>fb :Leaderf buffer<Cr>
-nnoremap <silent> <leader>fm :Leaderf mru<Cr>
 nnoremap <silent> <leader>ff :Leaderf function<Cr>
 nnoremap <silent> <leader>fF :Leaderf function --all<Cr>
+nnoremap <silent> <leader>fm :Leaderf mru<Cr>
 nnoremap <silent> <leader>fl :Leaderf line<Cr>
 nnoremap <silent> <leader>fL :Leaderf line --all<Cr>
 nnoremap <silent> <leader>fh :Leaderf help<Cr>
 nnoremap <silent> <leader>fg :Leaderf gtags<Cr>
+nnoremap <silent> <leader>fd :Leaderf gtags --definition <C-R><C-W> --auto-jump<Cr>
+nnoremap <silent> <leader>fr :Leaderf gtags --reference <C-R><C-W> --auto-jump<Cr>
+nnoremap <silent> <leader>fs :Leaderf gtags --symbol <C-R><C-W> --auto-jump<Cr>
 
 " >>> GitGutter
 let g:gitgutter_enabled = 0
@@ -178,29 +183,31 @@ call quickui#menu#install("&Display", [
    \ ])
 
 call quickui#menu#install("&Plugin", [
-   \ [ "GitGutter toggle on/off",           'GitGutterToggle',        'Toggle vim-gitgutter off and on '],
-   \ [ "GitGutter next change\t(]h)",       'GitGutterNextHunk',      'jump to next hunk (change)'],
-   \ [ "GitGutter previous change\t([h)",   'GitGutterPrevHunk',      'jump to previous hunk (change)'],
+   \ [ "GitGutter toggle on/off",               'GitGutterToggle',        'Toggle vim-gitgutter off and on '],
+   \ [ "GitGutter next hunk\t(]h)",             'GitGutterHextHunk',      'Jump to next hunk (change)'],
+   \ [ "GitGutter previous hunk\t([h)",         'GitGutterPrevHunk',      'Jump to previous hunk (change)'],
+   \ [ "GitGutter load to quickfix",            'GitGutterQuickFix',      'Load all hunks into the quickfix list'],
    \ [ "-"],
-   \ [ "Commenter comment\t(<leader>cc)",   'normal ,cc',             'Comment out the current line or text selected in visual mode'],
-   \ [ "Commenter comment\t(<leader>cs)",   'normal ,cs',             'Comments out the selected lines sexily'],
-   \ [ "Commenter uncomment\t(<leader>cu)", 'normal ,cu',             'Uncomments the selected line(s)'],
+   \ [ "Commenter comment\t(<leader>cc)",       'normal ,cc',             'Comment out the current line or text selected in visual mode'],
+   \ [ "Commenter comment\t(<leader>cs)",       'normal ,cs',             'Comments out the selected lines sexily'],
+   \ [ "Commenter uncomment\t(<leader>cu)",     'normal ,cu',             'Uncomments the selected line(s)'],
    \ [ "-"],
-   \ [ "EasyAlign align\t(vip<leader>a=)",  'normal vip,a=',          'Align align inner paragraph by ='],
+   \ [ "EasyAlign align\t(vip<leader>a=)",      'normal vip,a=',          'Align align inner paragraph by ='],
    \ [ "-"],
-   \ [ "LeaderF File\t(<leader>fp)",        'Leaderf file',           'Search files with leaderf'],
-   \ [ "LeaderF Buffer\t(<leader>fb)",      'Leaderf buffer',         'Search buffers with leaderf'],
-   \ [ "LeaderF Mru\t(<leader>fm)",         'Leaderf mru',            'Search mru with leaderf'],
-   \ [ "LeaderF Funcion\t(<leader>ff)",     'Leaderf function',       'Search functions in current buffer with leaderf'],
-   \ [ "LeaderF FuncionAll\t(<leader>fF)",  'Leaderf function --all', 'Search functions in all buffers with leaderf'],
-   \ [ "LeaderF Line\t(<leader>fl)",        'Leaderf line',           'Search lines in current buffer with leaderf'],
-   \ [ "LeaderF LineAll\t(<leader>fL)",     'Leaderf line --all',     'Search lines in all buffers with leaderf'],
-   \ [ "LeaderF Help\t(<leader>fh)",        'Leaderf help',           'Search help tags with leaderf'],
-   \ [ "LeaderF Gtags\t(<leader>fg)",       'Leaderf gtags',          'Search gtags with leaderf'],
+   \ [ "LeaderF File\t(<leader>fp)",            'Leaderf file',           'Search files with leaderf'],
+   \ [ "LeaderF Buffer\t(<leader>fb)",          'Leaderf buffer',         'Search buffers with leaderf'],
+   \ [ "LeaderF Funcion\t(<leader>ff)",         'Leaderf function',       'Search functions in current buffer with leaderf'],
+   \ [ "LeaderF FuncionAll\t(<leader>fF)",      'Leaderf function --all', 'Search functions in all buffers with leaderf'],
+   \ [ "LeaderF Mru\t(<leader>fm)",             'Leaderf mru',            'Search Mru with leaderf'],
+   \ [ "LeaderF Line\t(<leader>fl)",            'Leaderf line',           'Search lines in current buffer with leaderf'],
+   \ [ "LeaderF LineAll\t(<leader>fL)",         'Leaderf line --all',     'Search lines in all buffers with leaderf'],
+   \ [ "LeaderF Help\t(<leader>fh)",            'Leaderf help',           'Search help tags with leaderf'],
+   \ [ "LeaderF GTags\t(<leader>fg)",           'Leaderf gtags',          'Search gtags with leaderf'],
+   \ [ "LeaderF GTags update",                  'Leaderf gtags --update', 'Create/update gtags with leaderf'],
    \ [ "-"],
-   \ [ "Plugin Install",                    "PlugInstall",            "Install plugins"],
-   \ [ "Plugin Update",                     "PlugUpdate",             "Update plugins"],
-   \ [ "Plugin Status",                     "PlugStatus",             "Show plugin status"],
+   \ [ "Plugin Install",                        "PlugInstall",            "Install plugins"],
+   \ [ "Plugin Update",                         "PlugUpdate",             "Update plugins"],
+   \ [ "Plugin Status",                         "PlugStatus",             "Show plugin status"],
    \ ])
 
 call quickui#menu#install("&Config", [
