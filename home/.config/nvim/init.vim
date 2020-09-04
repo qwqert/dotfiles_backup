@@ -32,6 +32,9 @@ nnoremap <silent> [B :bfirst<CR>
 nnoremap <silent> ]B :blast<CR>
 nnoremap <silent> <Left>  :bprevious<CR>
 nnoremap <silent> <Right> :bnext<CR>
+nnoremap <silent> <C-b><C-h> :bprevious<CR>
+nnoremap <silent> <C-b><C-l> :bnext<CR>
+nnoremap <silent> <C-b>c :b#<bar>bwipeout#<bar>b<CR>
 
 " >>> Arg list (show arg list: args)
 nnoremap <silent> [a :previous<CR>
@@ -114,6 +117,7 @@ let g:Lf_PopupShowStatusline = 0
 let g:Lf_PreviewInPopup = 1
 let g:Lf_ShowDevIcons = 1
 let g:Lf_WindowHeight = 10
+let g:Lf_JumpToExistingWindow = 0
 let g:Lf_GtagsAutoGenerate = 0
 let g:Lf_GtagsAutoUpdate = 0
 let g:Lf_GtagsSkipUnreadable = 1
@@ -126,10 +130,8 @@ let g:Lf_WildIgnore = {
 let g:Lf_WorkingDirectoryMode = 'Ac'
 let g:Lf_ShowRelativePath = 0
 let g:Lf_PreviewResult = { 'Function': 0 }
-let g:Lf_ShortcutF = '<C-P>'
-let g:Lf_ShortcutB = '<C-B>'
-nnoremap <silent> <C-f> :LeaderfFunction<Cr>
-nnoremap <silent> <C-g> :LeaderfFunctionAll<Cr>
+let g:Lf_ShortcutF = '<leader>fp'
+let g:Lf_ShortcutB = '<leader>fb'
 nnoremap <silent> <leader>fp :Leaderf file<Cr>
 nnoremap <silent> <leader>fb :Leaderf buffer<Cr>
 nnoremap <silent> <leader>ff :Leaderf function<Cr>
@@ -175,11 +177,15 @@ let g:airline#extensions#tabline#left_alt_sep = '|'
 " clear all the menus
 call quickui#menu#reset()
 
-call quickui#menu#install("&Display", [
+call quickui#menu#install("&Builtin", [
    \ [ "Toggle hl&search", 'set hlsearch! hlsearch?'],
    \ [ "Toggle l&ist",     'set list! list?'],
    \ [ "Toggle &wrap",     'set wrap! wrap?'],
    \ [ "Toggle &paste",    'set paste! paste?'],
+   \ [ "-"],
+   \ [ "Buffer previous",  'bprevious'],
+   \ [ "Buffer next",      'bnext'],
+   \ [ "Buffer close",     'b#|bwipeout#|b'],
    \ ])
 
 call quickui#menu#install("&Plugin", [
