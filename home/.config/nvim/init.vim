@@ -16,6 +16,7 @@ set listchars=tab:»·,nbsp:·,trail:·
 set updatetime=300
 set autoread
 set nohlsearch
+set incsearch
 
 " >>> Encodings
 set encoding=utf-8
@@ -55,6 +56,9 @@ nnoremap <silent> ]t :tnext<CR>
 nnoremap <silent> [T :tfirst<CR>
 nnoremap <silent> ]T :tlast<CR>
 
+" >>> Man page
+nnoremap <silent> K :vertical Man <C-r><C-w><CR>
+
 " 自动进入文件所在目录
 execute "cd" expand("%:h")
 
@@ -70,7 +74,7 @@ endfunc
 let g:large_file = 1024 * 1024
 autocmd BufReadPre * let f=expand("<afile>") | if getfsize(f)
             \ > g:large_file | set noswapfile | endif
-let mapleader = ","
+let mapleader = " "
 
 call plug#begin(stdpath('data').'/plugged')
 
@@ -129,9 +133,12 @@ let g:Lf_WildIgnore = {
         \}
 let g:Lf_WorkingDirectoryMode = 'Ac'
 let g:Lf_ShowRelativePath = 0
-let g:Lf_PreviewResult = { 'Function': 0 }
+let g:Lf_PreviewResult = { 'Function': 0, 'BufTag': 0, }
 let g:Lf_ShortcutF = '<leader>fp'
 let g:Lf_ShortcutB = '<leader>fb'
+nnoremap <silent> <leader>f[ :Leaderf --previous<Cr>
+nnoremap <silent> <leader>f] :Leaderf --next<Cr>
+nnoremap <silent> <leader>f. :Leaderf --recall<Cr>
 nnoremap <silent> <leader>fp :Leaderf file<Cr>
 nnoremap <silent> <leader>fb :Leaderf buffer<Cr>
 nnoremap <silent> <leader>ff :Leaderf function<Cr>
@@ -140,6 +147,7 @@ nnoremap <silent> <leader>fm :Leaderf mru<Cr>
 nnoremap <silent> <leader>fl :Leaderf line<Cr>
 nnoremap <silent> <leader>fL :Leaderf line --all<Cr>
 nnoremap <silent> <leader>fh :Leaderf help<Cr>
+nnoremap <silent> <leader>ft :Leaderf bufTag<Cr>
 nnoremap <silent> <leader>fg :Leaderf gtags<Cr>
 nnoremap <silent> <leader>fd :Leaderf gtags --definition <C-R><C-W> --auto-jump<Cr>
 nnoremap <silent> <leader>fr :Leaderf gtags --reference <C-R><C-W> --auto-jump<Cr>
@@ -200,6 +208,9 @@ call quickui#menu#install("&Plugin", [
    \ [ "-"],
    \ [ "EasyAlign align\t(vip<leader>a=)",      'normal vip,a=',          'Align align inner paragraph by ='],
    \ [ "-"],
+   \ [ "LeaderF Recall\t(<leader>f.)",          'Leaderf --recall',       'Reopen last leaderf window'],
+   \ [ "LeaderF Previous\t(<leader>f[)",        'Leaderf --previous',     'Jump to preview entry in leaderf'],
+   \ [ "LeaderF Previous\t(<leader>f])",        'Leaderf --next',         'Jump to next entry in leaderf'],
    \ [ "LeaderF File\t(<leader>fp)",            'Leaderf file',           'Search files with leaderf'],
    \ [ "LeaderF Buffer\t(<leader>fb)",          'Leaderf buffer',         'Search buffers with leaderf'],
    \ [ "LeaderF Funcion\t(<leader>ff)",         'Leaderf function',       'Search functions in current buffer with leaderf'],
