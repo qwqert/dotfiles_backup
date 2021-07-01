@@ -214,7 +214,10 @@ bindsym $mod+s exec flameshot gui
 exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 #exec --no-startup-id synclient TouchpadOff=1
 exec --no-startup-id nitrogen --restore
+
 #exec --no-startup-id pgrep compton || compton -b
+exec --no-startup-id picom -D 1 -b
+
 exec --no-startup-id /usr/lib/mate-polkit/polkit-mate-authentication-agent-1 &
 #exec --no-startup-id pgrep ibus-daemon || ibus-daemon -drx & #--panel=disable &
 exec --no-startup-id pgrep fcitx5 || fcitx5 &
