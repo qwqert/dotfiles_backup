@@ -17,7 +17,7 @@
    blackselect:      #303030;
    darkgray:         #848484;
    scrollbarcolor:   #505050;
-   font: "Source Han Sans CN 11";
+   font: "Source Han Sans CN 9";
    background-color: @blackdarkest;
 }
 

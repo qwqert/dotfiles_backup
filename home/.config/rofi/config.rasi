@@ -3,7 +3,7 @@ configuration {
 /*  width: 40; */
 /*	lines: 15;*/
 /*  columns: 2; */
-	font: "Source Han Sans CN 11";
+	font: "Source Han Sans CN 9";
 /*	bw: 1;*/
 /*	location: 0;*/
 /*	padding: 5;*/
