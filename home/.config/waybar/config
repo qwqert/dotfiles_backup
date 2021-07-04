@@ -84,7 +84,8 @@
     "backlight": {
         // "device": "acpi_video1",
         "format": " {percent}%",
-        "format-icons": ["", ""]
+        "on-scroll-up": "brightnessctl set 1%+",
+        "on-scroll-down": "brightnessctl --min-value=10 set 1%-"
     },
     "battery": {
         "states": {

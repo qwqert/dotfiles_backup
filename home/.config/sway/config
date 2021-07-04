@@ -180,7 +180,7 @@ bar {
 input type:touchpad {
     dwt enabled
     tap enabled
-    natural_scroll enabled
+    natural_scroll disabled
 }
 
 input type:keyboard {
@@ -188,6 +188,8 @@ input type:keyboard {
 }
 
 # bindsym $mod+m bar mode toggle
+bindsym XF86MonBrightnessDown exec brightnessctl set 5%-
+bindsym XF86MonBrightnessUp exec brightnessctl set +5%
 
 # start rofi
 bindsym $mod+r exec rofi -show drun
