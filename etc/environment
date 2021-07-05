@@ -9,3 +9,8 @@ XMODIFIERS=@im=fcitx
 
 # firefox use wayland
 MOZ_ENABLE_WAYLAND=1
+
+QT_QPA_PLATFORM=wayland
+QT_QPA_PLATFORMTHEME=qt5ct
+CLUTTER_BACKEND=wayland
+SDL_VIDEODRIVER=wayland
