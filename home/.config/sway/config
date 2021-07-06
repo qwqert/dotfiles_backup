@@ -208,5 +208,9 @@ bindsym $mod+w exec rofi -show window
 bindsym $mod+Return exec st
 bindsym $mod+s exec flameshot gui
 
+# fix gtk3 applications slow launch
+exec systemctl --user import-environment DISPLAY WAYLAND_DISPLAY SWAYSOCK
+exec hash dbus-update-activation-environment 2>/dev/null && dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK
+
 exec --no-startup-id /usr/lib/mate-polkit/polkit-mate-authentication-agent-1 &
 exec_always fcitx5 -d --replace
