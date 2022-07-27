@@ -83,7 +83,7 @@ Plug 'nvim-lua/plenary.nvim'
 Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
 Plug 'nvim-telescope/telescope.nvim'
 Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
-Plug 'scrooloose/nerdcommenter'
+Plug 'preservim/nerdcommenter'
 Plug 'junegunn/vim-easy-align'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
@@ -99,6 +99,7 @@ Plug 'jacoborus/tender.vim'
 Plug 'kyazdani42/nvim-web-devicons'
 
 "--> Auto completion
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 " Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 call plug#end()
@@ -274,17 +275,18 @@ call quickui#menu#install("[&3]Leaderf", [
    \ ])
 
 call quickui#menu#install("[&4]Plugin", [
-   \ [ "Gitblame toggle on/off",             'GitBlameToggle ',        'Toggle git blame off and on '],
+   \ [ "Treesitter fold\t(<leader>zc)",      "normal zc",                                    "Fold code by Treesitter"],
+   \ [ "Treesitter unfold\t(<leader>zo)",    "normal zc",                                    "Unfold code by Treesitter"],
    \ [ "-"],
-   \ [ "Commenter comment\t(<leader>cc)",    'normal ,cc',             'Comment out the current line or text selected in visual mode'],
-   \ [ "Commenter comment\t(<leader>cs)",    'normal ,cs',             'Comments out the selected lines sexily'],
-   \ [ "Commenter uncomment\t(<leader>cu)",  'normal ,cu',             'Uncomments the selected line(s)'],
+   \ [ "Commenter comment\t(<leader>cc)",    "call nerdcommenter#Comment('n', 'comment')",   "Comment out the current line or text selected in visual mode"],
+   \ [ "Commenter comment\t(<leader>cs)",    "call nerdcommenter#Comment('n', 'sexy')",      "Comments out the selected lines sexily"],
+   \ [ "Commenter uncomment\t(<leader>cu)",  "call nerdcommenter#Comment('n', 'uncomment')", "Uncomments the selected line(s)"],
    \ [ "-"],
-   \ [ "EasyAlign align\t(vip<leader>a=)",   'normal vip,a=',          'Align align inner paragraph by ='],
+   \ [ "EasyAlign align\t(vip<leader>a=)",   "EasyAlign =",                                  "Align align inner paragraph by ="],
    \ [ "-"],
-   \ [ "Plugin Install",                     "PlugInstall",            "Install plugins"],
-   \ [ "Plugin Update",                      "PlugUpdate",             "Update plugins"],
-   \ [ "Plugin Status",                      "PlugStatus",             "Show plugin status"],
+   \ [ "Plugin Install",                     "PlugInstall",                                  "Install plugins"],
+   \ [ "Plugin Update",                      "PlugUpdate",                                   "Update plugins"],
+   \ [ "Plugin Status",                      "PlugStatus",                                   "Show plugin status"],
    \ ])
 
 call quickui#menu#install("[&5]Config", [
@@ -301,6 +303,39 @@ let g:quickui_color_scheme = 'solarized'
 noremap <F1> :call quickui#menu#open()<cr>
 noremap <leader><leader> :call quickui#menu#open()<cr>
 
+" >>> lualine
+lua <<EOF
+require'nvim-treesitter.configs'.setup {
+  -- 安装 language parser
+  -- :TSInstallInfo 命令查看支持的语言
+  ensure_installed = {"c", "vim", "lua", "dockerfile"},
+  -- 启用代码高亮功能
+  highlight = {
+    enable = true,
+    additional_vim_regex_highlighting = false
+  },
+  -- 启用增量选择
+  incremental_selection = {
+    enable = true,
+    keymaps = {
+      init_selection = '<CR>',
+      node_incremental = '<CR>',
+      node_decremental = '<BS>',
+      scope_incremental = '<TAB>',
+    }
+  },
+  -- 启用基于Treesitter的代码格式化(=) . NOTE: This is an experimental feature.
+  indent = {
+    enable = true
+  }
+}
+-- 开启 Folding
+vim.wo.foldmethod = 'expr'
+vim.wo.foldexpr = 'nvim_treesitter#foldexpr()'
+-- 默认不要折叠
+-- https://stackoverflow.com/questions/8316139/how-to-set-the-default-to-unfolded-when-you-open-a-file
+vim.wo.foldlevel = 99
+EOF
 
 " >>> coc.nvim
 
