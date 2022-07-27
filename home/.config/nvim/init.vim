@@ -44,10 +44,10 @@ nnoremap <silent> [A :first<CR>
 nnoremap <silent> ]A :last<CR>
 
 " >>> Quickfix list (show quickfix window: copen)
-nnoremap <silent> [c :cprevious<CR>zz
-nnoremap <silent> ]c :cnext<CR>zz
-nnoremap <silent> [C :cfirst<CR>zz
-nnoremap <silent> ]C :clast<CR>zz
+nnoremap <silent> [q :cprevious<CR>zz
+nnoremap <silent> ]q :cnext<CR>zz
+nnoremap <silent> [Q :cfirst<CR>zz
+nnoremap <silent> ]Q :clast<CR>zz
 
 " >>> Tag list of ctags (show tag select window: tselect)
 " nnoremap <silent> <C-]> g<C-]> " show tselect list when mulpitle results
@@ -60,7 +60,7 @@ nnoremap <silent> ]T :tlast<CR>
 nnoremap <silent> K :vertical Man <C-r><C-w><CR>
 
 " 自动进入文件所在目录
-execute "cd" expand("%:h")
+" execute "cd" expand("%:h")
 
 " 保存时自动删除行尾空格
 " autocmd BufWrite * :call DeleteTrailingWS()
@@ -79,32 +79,34 @@ let mapleader = " "
 call plug#begin(stdpath('data').'/plugged')
 
 "--> Utils
+Plug 'nvim-lua/plenary.nvim'
 Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
-Plug 'airblade/vim-gitgutter'
+Plug 'nvim-telescope/telescope.nvim'
+Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
 Plug 'scrooloose/nerdcommenter'
 Plug 'junegunn/vim-easy-align'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
+Plug 'tversteeg/registers.nvim'
 
 "--> start screen, menu
 Plug 'mhinz/vim-startify'
 Plug 'skywind3000/vim-quickui'
 
 "--> Themes, fonts, icons
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
-Plug 'altercation/vim-colors-solarized'
-Plug 'ryanoasis/vim-devicons'
+Plug 'nvim-lualine/lualine.nvim'
+Plug 'jacoborus/tender.vim'
+Plug 'kyazdani42/nvim-web-devicons'
 
 "--> Auto completion
-"Plug 'neoclide/coc.nvim'
+" Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 call plug#end()
 
 " >>> Vim colors solarized
 set background=dark
 let g:solarized_termcolors=256
-colorscheme solarized
+colorscheme tender
 
 " >>> NERD_commenter
 let NERDSpaceDelims = 1
@@ -134,24 +136,60 @@ let g:Lf_WildIgnore = {
 let g:Lf_WorkingDirectoryMode = 'Ac'
 let g:Lf_ShowRelativePath = 0
 let g:Lf_PreviewResult = { 'Function': 0, 'BufTag': 0, }
-let g:Lf_ShortcutF = '<leader>fp'
-let g:Lf_ShortcutB = '<leader>fb'
+" let g:Lf_ShortcutF = '<leader>fp'
+" let g:Lf_ShortcutB = '<leader>fb'
 nnoremap <silent> <leader>f[ :Leaderf --previous<Cr>
 nnoremap <silent> <leader>f] :Leaderf --next<Cr>
 nnoremap <silent> <leader>f. :Leaderf --recall<Cr>
-nnoremap <silent> <leader>fp :Leaderf file<Cr>
-nnoremap <silent> <leader>fb :Leaderf buffer<Cr>
+" nnoremap <silent> <leader>fp :Leaderf file<Cr>
+" nnoremap <silent> <leader>fb :Leaderf buffer<Cr>
 nnoremap <silent> <leader>ff :Leaderf function<Cr>
 nnoremap <silent> <leader>fF :Leaderf function --all<Cr>
-nnoremap <silent> <leader>fm :Leaderf mru<Cr>
-nnoremap <silent> <leader>fl :Leaderf line<Cr>
-nnoremap <silent> <leader>fL :Leaderf line --all<Cr>
-nnoremap <silent> <leader>fh :Leaderf help<Cr>
+" nnoremap <silent> <leader>fm :Leaderf mru<Cr>
+" nnoremap <silent> <leader>fl :Leaderf line<Cr>
+" nnoremap <silent> <leader>fL :Leaderf line --all<Cr>
+" nnoremap <silent> <leader>fh :Leaderf help<Cr>
 nnoremap <silent> <leader>ft :Leaderf bufTag<Cr>
 nnoremap <silent> <leader>fg :Leaderf gtags<Cr>
 nnoremap <silent> <leader>fd :Leaderf gtags --definition <C-R><C-W> --auto-jump<Cr>
 nnoremap <silent> <leader>fr :Leaderf gtags --reference <C-R><C-W> --auto-jump<Cr>
-nnoremap <silent> <leader>fs :Leaderf gtags --symbol <C-R><C-W> --auto-jump<Cr>
+" nnoremap <silent> <leader>fs :Leaderf gtags --symbol <C-R><C-W> --auto-jump<Cr>
+
+" >>> Telescope
+nnoremap <leader>fp <cmd>Telescope find_files<cr>
+nnoremap <leader>fb <cmd>Telescope buffers<cr>
+nnoremap <leader>fj <cmd>Telescope jumplist<cr>
+nnoremap <leader>fs <cmd>Telescope live_grep<cr>
+nnoremap <leader>fl <cmd>Telescope current_buffer_fuzzy_find<cr>
+nnoremap <leader>fh <cmd>Telescope help_tags<cr>
+nnoremap <leader>fk <cmd>Telescope man_pages<cr>
+nnoremap <leader>gs <cmd>Telescope grep_string<cr>
+
+lua << EOF
+require('telescope').load_extension('fzf')
+require('telescope').setup{
+    defaults = {
+        scroll_strategy = "limit",
+        mappings = {
+            i = {
+                ["<C-j>"] = require('telescope.actions').move_selection_next,
+                ["<C-k>"] = require('telescope.actions').move_selection_previous,
+            }
+        }
+    },
+    pickers = {
+        buffers = {
+            theme = "ivy",
+        },
+        jumplist = {
+            theme = "ivy",
+        },
+        man_pages = {
+            sections = { "ALL" },
+        }
+    },
+}
+EOF
 
 " >>> GitGutter
 let g:gitgutter_enabled = 0
@@ -180,54 +218,76 @@ let g:airline_theme = 'murmur'
 let g:airline#extensions#tabline#left_sep = ' '
 let g:airline#extensions#tabline#left_alt_sep = '|'
 
+" >>> lualine
+lua <<EOF
+require('lualine').setup {
+    options = {theme = 'onedark'},
+    tabline = {
+        lualine_a = {'buffers'},
+        lualine_z = {'tabs'}
+    },
+}
+EOF
+
 " >>> quickui
 
 " clear all the menus
 call quickui#menu#reset()
 
-call quickui#menu#install("&Builtin", [
-   \ [ "Toggle hl&search", 'set hlsearch! hlsearch?'],
-   \ [ "Toggle l&ist",     'set list! list?'],
-   \ [ "Toggle &wrap",     'set wrap! wrap?'],
-   \ [ "Toggle &paste",    'set paste! paste?'],
+call quickui#menu#install("[&1]Builtin", [
+   \ [ "[&1]Toggle hlsearch", 'set hlsearch! hlsearch?'],
+   \ [ "[&2]Toggle list",     'set list! list?'],
+   \ [ "[&3]Toggle wrap",     'set wrap! wrap?'],
+   \ [ "[&4]Toggle paste",    'set paste! paste?'],
    \ [ "-"],
-   \ [ "Buffer previous",  'bprevious'],
-   \ [ "Buffer next",      'bnext'],
-   \ [ "Buffer close",     'b#|bwipeout#|b'],
+   \ [ "Buffer previous",     'bprevious'],
+   \ [ "Buffer next",         'bnext'],
+   \ [ "Buffer close",        'b#|bwipeout#|b'],
+   \ [ "-"],
+   \ [ "&Quickfix open",      'copen'],
+   \ [ "Quickfix close",      'cclose'],
    \ ])
 
-call quickui#menu#install("&Plugin", [
-   \ [ "GitGutter toggle on/off",               'GitGutterToggle',        'Toggle vim-gitgutter off and on '],
-   \ [ "GitGutter next hunk\t(]h)",             'GitGutterHextHunk',      'Jump to next hunk (change)'],
-   \ [ "GitGutter previous hunk\t([h)",         'GitGutterPrevHunk',      'Jump to previous hunk (change)'],
-   \ [ "GitGutter load to quickfix",            'GitGutterQuickFix',      'Load all hunks into the quickfix list'],
+call quickui#menu#install("[&2]Telescope", [
+   \ [ "Telescope find_files\t(<leader>fp)",                'Telescope find_files',                'Lists files in your current working directory'],
+   \ [ "Telescope buffers\t(<leader>fb)",                   'Telescope buffers',                   'Lists open buffers in current neovim instance'],
+   \ [ "Telescope jumplist\t(<leader>fj)",                  'Telescope jumplist',                  'Lists Jump List entries'],
+   \ [ "Telescope live_grep\t(<leader>fs)",                 'Telescope live_grep',                 'Search for a string in your current working directory'],
+   \ [ "Telescope current_buffer_fuzzy_find\t(<leader>fl)", 'Telescope current_buffer_fuzzy_find', 'Live fuzzy search inside of the currently open buffer'],
+   \ [ "Telescope help_tags\t(<leader>fh)",                 'Telescope help_tags',                 'Lists available help tags'],
+   \ [ "Telescope man_pages\t(<leader>fk)",                 'Telescope man_pages',                 'Lists manpage entries'],
    \ [ "-"],
-   \ [ "Commenter comment\t(<leader>cc)",       'normal ,cc',             'Comment out the current line or text selected in visual mode'],
-   \ [ "Commenter comment\t(<leader>cs)",       'normal ,cs',             'Comments out the selected lines sexily'],
-   \ [ "Commenter uncomment\t(<leader>cu)",     'normal ,cu',             'Uncomments the selected line(s)'],
-   \ [ "-"],
-   \ [ "EasyAlign align\t(vip<leader>a=)",      'normal vip,a=',          'Align align inner paragraph by ='],
-   \ [ "-"],
-   \ [ "LeaderF Recall\t(<leader>f.)",          'Leaderf --recall',       'Reopen last leaderf window'],
-   \ [ "LeaderF Previous\t(<leader>f[)",        'Leaderf --previous',     'Jump to preview entry in leaderf'],
-   \ [ "LeaderF Previous\t(<leader>f])",        'Leaderf --next',         'Jump to next entry in leaderf'],
-   \ [ "LeaderF File\t(<leader>fp)",            'Leaderf file',           'Search files with leaderf'],
-   \ [ "LeaderF Buffer\t(<leader>fb)",          'Leaderf buffer',         'Search buffers with leaderf'],
-   \ [ "LeaderF Funcion\t(<leader>ff)",         'Leaderf function',       'Search functions in current buffer with leaderf'],
-   \ [ "LeaderF FuncionAll\t(<leader>fF)",      'Leaderf function --all', 'Search functions in all buffers with leaderf'],
-   \ [ "LeaderF Mru\t(<leader>fm)",             'Leaderf mru',            'Search Mru with leaderf'],
-   \ [ "LeaderF Line\t(<leader>fl)",            'Leaderf line',           'Search lines in current buffer with leaderf'],
-   \ [ "LeaderF LineAll\t(<leader>fL)",         'Leaderf line --all',     'Search lines in all buffers with leaderf'],
-   \ [ "LeaderF Help\t(<leader>fh)",            'Leaderf help',           'Search help tags with leaderf'],
-   \ [ "LeaderF GTags\t(<leader>fg)",           'Leaderf gtags',          'Search gtags with leaderf'],
-   \ [ "LeaderF GTags update",                  'Leaderf gtags --update', 'Create/update gtags with leaderf'],
-   \ [ "-"],
-   \ [ "Plugin Install",                        "PlugInstall",            "Install plugins"],
-   \ [ "Plugin Update",                         "PlugUpdate",             "Update plugins"],
-   \ [ "Plugin Status",                         "PlugStatus",             "Show plugin status"],
+   \ [ "Telescope grep_string\t(<leader>gs)",               'Telescope grep_string',               'Searches for the string under your cursor'],
    \ ])
 
-call quickui#menu#install("&Config", [
+call quickui#menu#install("[&3]Leaderf", [
+   \ [ "LeaderF Recall\t(<leader>f.)",           'Leaderf --recall',           'Reopen last leaderf window'],
+   \ [ "LeaderF Previous\t(<leader>f[)",         'Leaderf --previous',         'Jump to preview entry in leaderf'],
+   \ [ "LeaderF Previous\t(<leader>f])",         'Leaderf --next',             'Jump to next entry in leaderf'],
+   \ [ "LeaderF Funcion\t(<leader>ff)",          'Leaderf function',           'Search functions in current buffer with leaderf'],
+   \ [ "LeaderF FuncionAll\t(<leader>fF)",       'Leaderf function --all',     'Search functions in all buffers with leaderf'],
+   \ [ "LeaderF GTags\t(<leader>fg)",            'Leaderf gtags',              'Search gtags with leaderf'],
+   \ [ "LeaderF GTags update",                   'Leaderf gtags --update',     'Create/update gtags with leaderf'],
+   \ [ "-"],
+   \ [ "LeaderF GTags definition\t(<leader>gd)", 'Leaderf gtags --definition', 'Searches for definition of the string under cursor'],
+   \ [ "LeaderF GTags reference\t(<leader>gr)",  'Leaderf gtags --reference',  'Searches for reference of the string under cursor'],
+   \ ])
+
+call quickui#menu#install("[&4]Plugin", [
+   \ [ "Gitblame toggle on/off",             'GitBlameToggle ',        'Toggle git blame off and on '],
+   \ [ "-"],
+   \ [ "Commenter comment\t(<leader>cc)",    'normal ,cc',             'Comment out the current line or text selected in visual mode'],
+   \ [ "Commenter comment\t(<leader>cs)",    'normal ,cs',             'Comments out the selected lines sexily'],
+   \ [ "Commenter uncomment\t(<leader>cu)",  'normal ,cu',             'Uncomments the selected line(s)'],
+   \ [ "-"],
+   \ [ "EasyAlign align\t(vip<leader>a=)",   'normal vip,a=',          'Align align inner paragraph by ='],
+   \ [ "-"],
+   \ [ "Plugin Install",                     "PlugInstall",            "Install plugins"],
+   \ [ "Plugin Update",                      "PlugUpdate",             "Update plugins"],
+   \ [ "Plugin Status",                      "PlugStatus",             "Show plugin status"],
+   \ ])
+
+call quickui#menu#install("[&5]Config", [
    \ [ "Vim configuration",     "e ~/.config/nvim/init.vim",    "Edit ~/.config/nvim/init.vim"],
    \ [ "I3wm configuration",    "e ~/.config/i3/config",        "Edit ~/.config/i3/config"],
    \ [ "Polybar configuration", "e ~/.config/polybar/config",   "Edit ~/.config/polybar/config"],
@@ -243,23 +303,6 @@ noremap <leader><leader> :call quickui#menu#open()<cr>
 
 
 " >>> coc.nvim
-
-" TextEdit might fail if hidden is not set.
-" set hidden
-
-" Some servers have issues with backup files, see #649.
-" set nobackup
-" set nowritebackup
-
-" Give more space for displaying messages.
-" set cmdheight=2
-
-" Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
-" delays and poor user experience.
-" set updatetime=300
-
-" Don't pass messages to |ins-completion-menu|.
-" set shortmess+=c
 
 " Always show the signcolumn, otherwise it would shift the text each time
 " diagnostics appear/become resolved.
