@@ -99,7 +99,7 @@ Plug 'jacoborus/tender.vim'
 Plug 'kyazdani42/nvim-web-devicons'
 
 "--> Auto completion
-Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate' }
 " Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 call plug#end()
