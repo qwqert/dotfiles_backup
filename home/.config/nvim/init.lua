@@ -168,6 +168,7 @@ require('packer').startup({function(use)
 
     use { 'tpope/vim-surround' }
     use { 'tpope/vim-repeat' }
+    use { 'Darazaki/indent-o-matic' }
 
     -- Fuzz finder
     use {
@@ -290,7 +291,7 @@ require('packer').startup({function(use)
             }
             require('lspconfig').ccls.setup {
                 init_options = {
-                    compilationDatabaseDirectory = "build",
+                    -- compilationDatabaseDirectory = "build",
                     index = {
                         threads = 0,
                     },
