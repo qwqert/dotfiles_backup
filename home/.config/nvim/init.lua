@@ -69,6 +69,16 @@ local global_mappings = {
     }
 }
 
+local global_autocmds = {
+    {
+        event = {"BufWritePost"},
+        opts = {
+            command = 'source <afile> | PackerCompile',
+            pattern = vim.fn.expand '$MYVIMRC',
+        },
+    }
+}
+
 function Apply_variables(group)
     for key, value in pairs(group) do
         vim.g[key] = value
@@ -89,9 +99,16 @@ function Apply_mappings(group)
     end
 end
 
+function Apply_autocmds(group)
+    for idx, value in ipairs(group) do 
+        vim.api.nvim_create_autocmd(value.event, value.opts)
+    end
+end
+
 Apply_variables(global_variables)
 Apply_options(global_options)
 Apply_mappings(global_mappings)
+Apply_autocmds(global_autocmds)
 
 require('packer').startup({function(use)
     -- Packer can manage itself
@@ -102,7 +119,15 @@ require('packer').startup({function(use)
         'nvim-lualine/lualine.nvim',
         requires = { 'kyazdani42/nvim-web-devicons' },
         config = function() require('lualine').setup {
-            options = {theme = 'onedark'},
+            options = {
+                theme = 'onedark',
+                section_separators = { left = '', right = '' },
+                component_separators = { left = '', right = '' },
+                path = 1,
+            },
+            sections = {
+                lualine_b = {'branch', 'diff'},
+            },
             tabline = {
                 lualine_a = {'buffers'},
                 lualine_z = {'tabs'}
@@ -264,7 +289,7 @@ require('packer').startup({function(use)
     }
 
     -- LSP
-    use {
+    --[[ use {
         "neovim/nvim-lspconfig",
         config = function()
             require('lspconfig').sumneko_lua.setup {
@@ -301,7 +326,7 @@ require('packer').startup({function(use)
                 }
             }
         end
-    }
+    } ]]
 
 end,
     config = {
