@@ -100,7 +100,7 @@ function Apply_mappings(group)
 end
 
 function Apply_autocmds(group)
-    for idx, value in ipairs(group) do 
+    for _, value in ipairs(group) do
         vim.api.nvim_create_autocmd(value.event, value.opts)
     end
 end
@@ -289,10 +289,10 @@ require('packer').startup({function(use)
     }
 
     -- LSP
-    --[[ use {
+    use {
         "neovim/nvim-lspconfig",
         config = function()
-            require('lspconfig').sumneko_lua.setup {
+            require('lspconfig').lua_ls.setup {
                 settings = {
                     Lua = {
                         runtime = {
@@ -326,7 +326,7 @@ require('packer').startup({function(use)
                 }
             }
         end
-    } ]]
+    }
 
 end,
     config = {
